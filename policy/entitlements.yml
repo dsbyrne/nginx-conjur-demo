@@ -1,0 +1,9 @@
+---
+# Create a host identity for a machine which will run your application
+- !host my-server
+
+# Add the identity to the my-application/nginx layer, thus granting it the
+# layers privilege
+- !grant
+  role: !layer my-application/nginx
+  member: !host my-server

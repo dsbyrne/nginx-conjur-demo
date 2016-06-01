@@ -1,0 +1,17 @@
+---
+- !policy
+  id: my-application/nginx
+  body:
+  
+  - &variables
+    - !variable certificate
+    - !variable certificate-key
+  
+  - !layer
+
+  - !permit
+    role: !layer
+    privilege:
+      - read
+      - execute
+    resource: *variables

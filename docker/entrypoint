@@ -1,0 +1,20 @@
+#!/usr/bin/bash
+set -e
+
+if [[ -z "$CONJURIZE" ]]; then
+  exit 1
+fi
+
+bash -c "$CONJURIZE"
+
+run_nginx () {
+  NGINX_SSL_DIR=/etc/nginx/ssl
+  mkdir -p $NGINX_SSL_DIR
+
+  ln -Fs $CERTIFICATE_PATH $NGINX_SSL_DIR/nginx.crt
+  ln -Fs $CERTIFICATE_KEY_PATH $NGINX_SSL_DIR/nginx.key
+
+  nginx
+}
+
+summon bash -c "$(declare -f run_nginx); run_nginx"
