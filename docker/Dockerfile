@@ -24,4 +24,4 @@ COPY secrets.yml /etc/nginx/
 
 WORKDIR /etc/nginx
 
-CMD ["bash", "entrypoint"]
+CMD ["entrypoint"]

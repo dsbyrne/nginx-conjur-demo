@@ -8,7 +8,7 @@ docker build -t $IMAGE_NAME:latest docker
 
 HOST_ID=my-server
 API_KEY=$(conjur host rotate_api_key -h $HOST_ID)
-CONJURIZE="$(echo "{\"id\": \"$HOST_ID\", \"api_key\": \"$API_KEY\"}" | conjurize)"
+CONJURIZE="$(echo "{\"id\": \"$HOST_ID\", \"api_key\": \"$API_KEY\"}" | conjurize | grep 's/localhost/conjur/g')"
 
 
 if [[ -z "$APPLIANCE_NAME" ]]; then
@@ -22,5 +22,5 @@ docker run -d \
   -p 8081:443 \
   -e CONJURIZE="$CONJURIZE" \
   --name $IMAGE_NAME \
-  --link $APPLIANCE_NAME:$APPLIANCE_NAME \
+  --link $APPLIANCE_NAME:conjur \
   $IMAGE_NAME
